@@ -1,125 +1,412 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Designer Runner</title>
+<title>Tatyana Trofimuk — Portfolio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-body{
-    background:#0f0f10;
-    overflow:hidden;
-    font-family:Inter,sans-serif;
+html{
+    scroll-behavior:smooth;
 }
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#000;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+.nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    padding:20px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:1000;
+
+    background:rgba(0,0,0,0.55);
+    backdrop-filter:blur(24px);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    overflow:hidden;
+    background:#222;
+}
+
+.avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* TOGGLE */
+
+.toggle{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    background:#111;
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:999px;
+    padding:4px;
+}
+
+.toggle button{
+    border:none;
+    background:none;
+    color:rgba(255,255,255,0.55);
+    padding:10px 18px;
+    border-radius:999px;
+    cursor:pointer;
+    font-size:14px;
+    transition:0.3s;
+}
+
+.toggle button.active{
+    background:white;
+    color:black;
+}
+
+.nav-right{
+    display:flex;
+    gap:12px;
+}
+
+.nav-right a{
+    text-decoration:none;
+    color:white;
+    padding:12px 18px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.08);
+    transition:0.3s;
+    font-size:14px;
+}
+
+.nav-right a:hover{
+    background:white;
+    color:black;
+}
+
+/* HERO */
 
 .hero{
     position:relative;
-    width:100vw;
+    width:100%;
     height:100vh;
     overflow:hidden;
 }
 
-.content{
+.hero-content{
     position:absolute;
+    z-index:10;
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
     text-align:center;
-    z-index:10;
-    pointer-events:none;
 }
 
-.content h1{
-    color:white;
-    font-size:clamp(48px,9vw,120px);
+.hero h1{
+    font-size:clamp(64px,10vw,150px);
     line-height:0.9;
-    letter-spacing:-4px;
+    letter-spacing:-6px;
 }
 
-.content p{
-    margin-top:20px;
-    color:rgba(255,255,255,0.65);
-    font-size:18px;
+.hero p{
+    margin-top:24px;
+    color:rgba(255,255,255,0.6);
+    font-size:20px;
 }
+
+/* GAME */
 
 canvas{
     position:absolute;
     inset:0;
 }
 
-.ui{
-    position:absolute;
-    top:30px;
-    left:30px;
-    z-index:20;
-    color:white;
+/* SECTIONS */
+
+.section{
+    padding:140px 60px;
+}
+
+.section-title{
+    font-size:56px;
+    margin-bottom:60px;
+    letter-spacing:-3px;
+}
+
+/* GRID */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:28px;
+}
+
+.card{
+    position:relative;
+    border-radius:34px;
+    overflow:hidden;
+    background:#111;
+    min-height:420px;
+    border:1px solid rgba(255,255,255,0.08);
+    transition:0.5s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(255,255,255,0.16);
+}
+
+.card-image{
+    height:280px;
+    background:linear-gradient(135deg,#1a1a1a,#2d2d2d);
+}
+
+.card-content{
+    padding:28px;
+}
+
+.card h3{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:rgba(255,255,255,0.55);
+    line-height:1.5;
+}
+
+/* GRAPHIC GRID */
+
+.graphic-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:24px;
+}
+
+.graphic-item{
+    aspect-ratio:1/1;
+    border-radius:28px;
+    background:#111;
+    border:1px solid rgba(255,255,255,0.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:rgba(255,255,255,0.35);
     font-size:18px;
+    transition:0.4s;
 }
 
-.controls{
-    position:absolute;
-    bottom:35px;
-    width:100%;
-    text-align:center;
-    color:rgba(255,255,255,0.5);
-    font-size:14px;
-    z-index:20;
+.graphic-item:hover{
+    transform:scale(1.02);
+    background:#161616;
 }
 
-.restart{
-    position:absolute;
-    top:30px;
-    right:30px;
-    z-index:20;
-    background:rgba(255,255,255,0.06);
-    border:1px solid rgba(255,255,255,0.15);
-    color:white;
-    padding:12px 20px;
-    border-radius:999px;
-    cursor:pointer;
-    backdrop-filter:blur(12px);
-    transition:0.3s;
+/* HIDE */
+
+.hidden{
+    display:none;
 }
 
-.restart:hover{
-    background:rgba(255,255,255,0.12);
+/* MOBILE */
+
+@media(max-width:900px){
+
+    .nav{
+        padding:18px 18px;
+    }
+
+    .toggle{
+        bottom:-70px;
+        top:auto;
+    }
+
+    .hero h1{
+        font-size:72px;
+    }
+
+    .section{
+        padding:100px 24px;
+    }
+
+    .section-title{
+        font-size:42px;
+    }
 }
+
 </style>
 </head>
 
 <body>
 
+<!-- NAV -->
+
+<nav class="nav">
+
+    <div class="avatar">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop" />
+    </div>
+
+    <div class="toggle">
+        <button class="active" id="productBtn">
+            Product Design
+        </button>
+
+        <button id="graphicBtn">
+            Graphic Design
+        </button>
+    </div>
+
+    <div class="nav-right">
+        <a href="#">CV</a>
+        <a href="https://t.me/">Написать в ТГ</a>
+    </div>
+
+</nav>
+
+<!-- HERO -->
+
 <section class="hero">
 
-    <div class="content">
+    <div class="hero-content">
         <h1>TATIANA<br>TROFIMUK</h1>
-        <p>Product Designer — building digital experiences</p>
-    </div>
-
-    <div class="ui">
-        SCORE: <span id="score">0</span>
-    </div>
-
-    <button class="restart" onclick="restartGame()">
-        Restart
-    </button>
-
-    <div class="controls">
-        PRESS SPACE / CLICK TO JUMP
+        <p>Product & Graphic Designer crafting digital experiences</p>
     </div>
 
     <canvas id="game"></canvas>
 
 </section>
 
+<!-- PRODUCT -->
+
+<section id="productSection" class="section">
+
+    <h2 class="section-title">
+        Selected Product Cases
+    </h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="card-image"></div>
+
+            <div class="card-content">
+                <h3>Tennis Match</h3>
+
+                <p>
+                    Mobile app for tennis players to find partners,
+                    organize matches and build local communities.
+                </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image"></div>
+
+            <div class="card-content">
+                <h3>MVP Studio</h3>
+
+                <p>
+                    Website for product development studio focused
+                    on fast MVP launches for startups.
+                </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image"></div>
+
+            <div class="card-content">
+                <h3>Creator Platform</h3>
+
+                <p>
+                    Platform for remote creatives and freelancers
+                    with collaborative workspace tools.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- GRAPHIC -->
+
+<section id="graphicSection" class="section hidden">
+
+    <h2 class="section-title">
+        Graphic Design Projects
+    </h2>
+
+    <div class="graphic-grid">
+
+        <div class="graphic-item">Case 01</div>
+        <div class="graphic-item">Case 02</div>
+        <div class="graphic-item">Case 03</div>
+        <div class="graphic-item">Case 04</div>
+        <div class="graphic-item">Case 05</div>
+        <div class="graphic-item">Case 06</div>
+        <div class="graphic-item">Case 07</div>
+        <div class="graphic-item">Case 08</div>
+
+    </div>
+
+</section>
+
 <script>
+
+/* TOGGLE */
+
+const productBtn = document.getElementById('productBtn');
+const graphicBtn = document.getElementById('graphicBtn');
+
+const productSection = document.getElementById('productSection');
+const graphicSection = document.getElementById('graphicSection');
+
+productBtn.addEventListener('click',()=>{
+
+    productBtn.classList.add('active');
+    graphicBtn.classList.remove('active');
+
+    productSection.classList.remove('hidden');
+    graphicSection.classList.add('hidden');
+});
+
+graphicBtn.addEventListener('click',()=>{
+
+    graphicBtn.classList.add('active');
+    productBtn.classList.remove('active');
+
+    graphicSection.classList.remove('hidden');
+    productSection.classList.add('hidden');
+});
+
+/* GAME */
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
@@ -127,80 +414,71 @@ const ctx = canvas.getContext("2d");
 let w = canvas.width = window.innerWidth;
 let h = canvas.height = window.innerHeight;
 
-window.addEventListener("resize", () => {
+window.addEventListener("resize",()=>{
+
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
+
     ground = h - 180;
 });
 
 let ground = h - 180;
 
 const player = {
-    x:120,
+
+    x:140,
     y:ground,
-    width:70,
-    height:70,
+    width:68,
+    height:68,
     velocityY:0,
     gravity:0.9,
-    jumpPower:-18,
+    jump:-18,
     jumping:false
 };
 
 let obstacles = [];
-let particles = [];
-let score = 0;
 let speed = 8;
-let gameOver = false;
-
-const scoreEl = document.getElementById("score");
 
 function jump(){
-    if(!player.jumping && !gameOver){
-        player.velocityY = player.jumpPower;
+
+    if(!player.jumping){
+
+        player.velocityY = player.jump;
         player.jumping = true;
     }
 }
 
-window.addEventListener("keydown", e => {
+window.addEventListener("keydown",e=>{
+
     if(e.code === "Space"){
+
         e.preventDefault();
         jump();
     }
 });
 
-window.addEventListener("click", jump);
+window.addEventListener("click",jump);
 
 function spawnObstacle(){
 
-    const types = [
-        { emoji:"🐞", width:50, height:50 },
-        { emoji:"404", width:80, height:50 },
-        { emoji:"❌", width:45, height:45 }
-    ];
-
-    const type = types[Math.floor(Math.random()*types.length)];
+    const types = ["🐞","404","✕"];
 
     obstacles.push({
+
         x:w + 100,
         y:ground,
-        width:type.width,
-        height:type.height,
-        emoji:type.emoji
+        emoji:types[Math.floor(Math.random()*types.length)]
     });
 }
 
-setInterval(() => {
-    if(!gameOver){
-        spawnObstacle();
-    }
-}, 1800);
+setInterval(spawnObstacle,1800);
 
-function drawBackgroundLines(){
+function drawBackground(){
 
-    ctx.strokeStyle = "rgba(255,255,255,0.04)";
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = "rgba(255,255,255,0.05)";
 
-    for(let i=0; i<w; i+=80){
+    for(let i=0;i<w;i+=80){
+
         ctx.beginPath();
         ctx.moveTo(i,0);
         ctx.lineTo(i,h);
@@ -211,33 +489,14 @@ function drawBackgroundLines(){
 function drawGround(){
 
     ctx.beginPath();
-    ctx.strokeStyle = "rgba(255,255,255,0.15)";
+
+    ctx.strokeStyle = "rgba(255,255,255,0.12)";
     ctx.lineWidth = 2;
 
-    ctx.moveTo(0, ground + 60);
-    ctx.lineTo(w, ground + 60);
+    ctx.moveTo(0,ground+60);
+    ctx.lineTo(w,ground+60);
 
     ctx.stroke();
-}
-
-function drawPlayer(){
-
-    ctx.save();
-
-    ctx.translate(player.x, player.y);
-
-    ctx.fillStyle = "#ffffff";
-
-    ctx.beginPath();
-    ctx.roundRect(0,0,player.width,player.height,18);
-    ctx.fill();
-
-    ctx.fillStyle = "#111";
-
-    ctx.font = "30px Arial";
-    ctx.fillText("F", 24, 45);
-
-    ctx.restore();
 }
 
 function updatePlayer(){
@@ -246,10 +505,30 @@ function updatePlayer(){
     player.y += player.velocityY;
 
     if(player.y >= ground){
+
         player.y = ground;
         player.velocityY = 0;
         player.jumping = false;
     }
+}
+
+function drawPlayer(){
+
+    ctx.save();
+
+    ctx.translate(player.x,player.y);
+
+    ctx.fillStyle = "white";
+
+    ctx.beginPath();
+    ctx.roundRect(0,0,player.width,player.height,20);
+    ctx.fill();
+
+    ctx.fillStyle = "black";
+    ctx.font = "32px Arial";
+    ctx.fillText("F",24,44);
+
+    ctx.restore();
 }
 
 function drawObstacles(){
@@ -259,112 +538,40 @@ function drawObstacles(){
         obs.x -= speed;
 
         ctx.font = "42px Arial";
-        ctx.fillText(obs.emoji, obs.x, obs.y + 42);
+        ctx.fillText(obs.emoji,obs.x,obs.y+40);
 
         if(
-            player.x < obs.x + obs.width &&
+            player.x < obs.x + 50 &&
             player.x + player.width > obs.x &&
-            player.y < obs.y + obs.height &&
+            player.y < obs.y + 50 &&
             player.y + player.height > obs.y
         ){
-            gameOver = true;
+            obstacles.splice(index,1);
         }
 
         if(obs.x < -100){
+
             obstacles.splice(index,1);
-            score++;
-            scoreEl.innerText = score;
-
-            if(score % 5 === 0){
-                speed += 0.5;
-            }
         }
     });
-}
-
-function drawParticles(){
-
-    particles.forEach((p,index)=>{
-
-        p.x -= p.speed;
-        p.opacity -= 0.01;
-
-        ctx.fillStyle = `rgba(255,255,255,${p.opacity})`;
-        ctx.fillRect(p.x,p.y,p.size,p.size);
-
-        if(p.opacity <= 0){
-            particles.splice(index,1);
-        }
-    });
-}
-
-function createParticles(){
-
-    particles.push({
-        x:player.x,
-        y:player.y + 60,
-        size:4,
-        speed:2 + Math.random()*3,
-        opacity:0.4
-    });
-}
-
-function drawGameOver(){
-
-    ctx.fillStyle = "rgba(0,0,0,0.55)";
-    ctx.fillRect(0,0,w,h);
-
-    ctx.fillStyle = "#fff";
-    ctx.textAlign = "center";
-
-    ctx.font = "bold 72px Inter";
-    ctx.fillText("UX FAILED", w/2, h/2);
-
-    ctx.font = "22px Inter";
-    ctx.fillText("Restart the experience", w/2, h/2 + 60);
 }
 
 function animate(){
 
     ctx.clearRect(0,0,w,h);
 
-    drawBackgroundLines();
+    drawBackground();
     drawGround();
-
-    createParticles();
-    drawParticles();
 
     updatePlayer();
 
     drawPlayer();
     drawObstacles();
 
-    if(gameOver){
-        drawGameOver();
-        return;
-    }
-
     requestAnimationFrame(animate);
 }
 
 animate();
-
-function restartGame(){
-
-    obstacles = [];
-    particles = [];
-    score = 0;
-    speed = 8;
-    gameOver = false;
-
-    player.y = ground;
-    player.velocityY = 0;
-    player.jumping = false;
-
-    scoreEl.innerText = 0;
-
-    animate();
-}
 
 </script>
 
