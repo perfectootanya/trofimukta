@@ -7,9 +7,25 @@
 <title>Tatyana Trofimuk — Portfolio</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+
+:root{
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --text:#111111;
+    --sub:#6d7485;
+    --border:#e7ebf3;
+
+    --accent:#2f6bff;
+    --accent-soft:#dfe9ff;
+}
+
+body.graphic-mode{
+    --accent:#ff4fb3;
+    --accent-soft:#ffe1f2;
+}
 
 *{
     margin:0;
@@ -23,27 +39,28 @@ html{
 
 body{
     font-family:'Inter',sans-serif;
-    background:#000;
-    color:white;
+    background:var(--bg);
+    color:var(--text);
     overflow-x:hidden;
+    transition:0.4s;
 }
 
-/* NAVBAR */
+/* NAV */
 
 .nav{
     position:fixed;
     top:0;
-    left:0;
     width:100%;
-    padding:20px 40px;
+    padding:20px 34px;
     display:flex;
     justify-content:space-between;
     align-items:center;
     z-index:1000;
 
-    background:rgba(0,0,0,0.55);
-    backdrop-filter:blur(24px);
-    border-bottom:1px solid rgba(255,255,255,0.06);
+    background:rgba(255,255,255,0.72);
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid rgba(0,0,0,0.04);
 }
 
 .avatar{
@@ -51,7 +68,6 @@ body{
     height:42px;
     border-radius:50%;
     overflow:hidden;
-    background:#222;
 }
 
 .avatar img{
@@ -67,27 +83,31 @@ body{
     left:50%;
     transform:translateX(-50%);
     display:flex;
-    background:#111;
-    border:1px solid rgba(255,255,255,0.08);
+    background:white;
+    border:1px solid var(--border);
     border-radius:999px;
     padding:4px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
 .toggle button{
     border:none;
     background:none;
-    color:rgba(255,255,255,0.55);
     padding:10px 18px;
     border-radius:999px;
     cursor:pointer;
-    font-size:14px;
+
+    color:var(--sub);
+    font-weight:500;
     transition:0.3s;
 }
 
 .toggle button.active{
-    background:white;
-    color:black;
+    background:var(--accent);
+    color:white;
 }
+
+/* NAV BUTTONS */
 
 .nav-right{
     display:flex;
@@ -96,18 +116,20 @@ body{
 
 .nav-right a{
     text-decoration:none;
-    color:white;
+    color:var(--text);
+
+    border:1px solid var(--border);
+
     padding:12px 18px;
     border-radius:999px;
-    background:rgba(255,255,255,0.06);
-    border:1px solid rgba(255,255,255,0.08);
+
+    background:white;
     transition:0.3s;
-    font-size:14px;
 }
 
 .nav-right a:hover{
-    background:white;
-    color:black;
+    background:var(--accent);
+    color:white;
 }
 
 /* HERO */
@@ -116,31 +138,31 @@ body{
     position:relative;
     width:100%;
     height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
     overflow:hidden;
 }
 
 .hero-content{
-    position:absolute;
+    position:relative;
     z-index:10;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
     text-align:center;
 }
 
 .hero h1{
-    font-size:clamp(64px,10vw,150px);
-    line-height:0.9;
-    letter-spacing:-6px;
+    font-size:clamp(48px,7vw,92px);
+    line-height:0.95;
+    letter-spacing:-4px;
 }
 
 .hero p{
-    margin-top:24px;
-    color:rgba(255,255,255,0.6);
+    margin-top:20px;
+    color:var(--sub);
     font-size:20px;
 }
-
-/* GAME */
 
 canvas{
     position:absolute;
@@ -150,41 +172,42 @@ canvas{
 /* SECTIONS */
 
 .section{
-    padding:140px 60px;
+    padding:120px 60px;
 }
 
 .section-title{
-    font-size:56px;
-    margin-bottom:60px;
+    font-size:52px;
+    margin-bottom:50px;
     letter-spacing:-3px;
 }
 
-/* GRID */
+/* PRODUCT GRID */
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
     gap:28px;
 }
 
 .card{
-    position:relative;
+    background:var(--card);
     border-radius:34px;
     overflow:hidden;
-    background:#111;
-    min-height:420px;
-    border:1px solid rgba(255,255,255,0.08);
-    transition:0.5s;
+
+    border:1px solid var(--border);
+
+    transition:0.4s;
 }
 
 .card:hover{
     transform:translateY(-8px);
-    border-color:rgba(255,255,255,0.16);
+    box-shadow:0 20px 40px rgba(0,0,0,0.08);
 }
 
-.card-image{
-    height:280px;
-    background:linear-gradient(135deg,#1a1a1a,#2d2d2d);
+.card img{
+    width:100%;
+    height:260px;
+    object-fit:cover;
 }
 
 .card-content{
@@ -192,39 +215,45 @@ canvas{
 }
 
 .card h3{
-    font-size:28px;
+    font-size:30px;
     margin-bottom:10px;
 }
 
 .card p{
-    color:rgba(255,255,255,0.55);
+    color:var(--sub);
     line-height:1.5;
 }
 
-/* GRAPHIC GRID */
+/* GRAPHIC */
 
 .graphic-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
     gap:24px;
 }
 
-.graphic-item{
-    aspect-ratio:1/1;
+.graphic-card{
+    background:white;
     border-radius:28px;
-    background:#111;
-    border:1px solid rgba(255,255,255,0.08);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:rgba(255,255,255,0.35);
-    font-size:18px;
+    overflow:hidden;
+    border:1px solid var(--border);
+
     transition:0.4s;
 }
 
-.graphic-item:hover{
+.graphic-card:hover{
     transform:scale(1.02);
-    background:#161616;
+}
+
+.graphic-card img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+}
+
+.graphic-card p{
+    padding:18px;
+    font-weight:600;
 }
 
 /* HIDE */
@@ -238,7 +267,7 @@ canvas{
 @media(max-width:900px){
 
     .nav{
-        padding:18px 18px;
+        padding:18px;
     }
 
     .toggle{
@@ -247,7 +276,7 @@ canvas{
     }
 
     .hero h1{
-        font-size:72px;
+        font-size:62px;
     }
 
     .section{
@@ -255,7 +284,7 @@ canvas{
     }
 
     .section-title{
-        font-size:42px;
+        font-size:40px;
     }
 }
 
@@ -269,10 +298,11 @@ canvas{
 <nav class="nav">
 
     <div class="avatar">
-        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop" />
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop">
     </div>
 
     <div class="toggle">
+
         <button class="active" id="productBtn">
             Product Design
         </button>
@@ -280,6 +310,7 @@ canvas{
         <button id="graphicBtn">
             Graphic Design
         </button>
+
     </div>
 
     <div class="nav-right">
@@ -293,62 +324,77 @@ canvas{
 
 <section class="hero">
 
+    <canvas id="game"></canvas>
+
     <div class="hero-content">
         <h1>TATIANA<br>TROFIMUK</h1>
-        <p>Product & Graphic Designer crafting digital experiences</p>
-    </div>
 
-    <canvas id="game"></canvas>
+        <p>
+            Product & Graphic Designer creating digital experiences
+        </p>
+    </div>
 
 </section>
 
 <!-- PRODUCT -->
 
-<section id="productSection" class="section">
+<section class="section" id="productSection">
 
     <h2 class="section-title">
-        Selected Product Cases
+        Product Design Cases
     </h2>
 
     <div class="grid">
 
         <div class="card">
-            <div class="card-image"></div>
+
+            <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=1200&auto=format&fit=crop">
 
             <div class="card-content">
+
                 <h3>Tennis Match</h3>
 
                 <p>
                     Mobile app for tennis players to find partners,
                     organize matches and build local communities.
                 </p>
+
             </div>
+
         </div>
 
         <div class="card">
-            <div class="card-image"></div>
+
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop">
 
             <div class="card-content">
+
                 <h3>MVP Studio</h3>
 
                 <p>
-                    Website for product development studio focused
-                    on fast MVP launches for startups.
+                    Website for MVP product development studio
+                    focused on startup launches.
                 </p>
+
             </div>
+
         </div>
 
         <div class="card">
-            <div class="card-image"></div>
+
+            <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=1200&auto=format&fit=crop">
 
             <div class="card-content">
+
                 <h3>Creator Platform</h3>
 
                 <p>
-                    Platform for remote creatives and freelancers
-                    with collaborative workspace tools.
+                    Digital workspace platform for creators,
+                    remote freelancers and collaboration.
                 </p>
+
             </div>
+
         </div>
 
     </div>
@@ -357,7 +403,7 @@ canvas{
 
 <!-- GRAPHIC -->
 
-<section id="graphicSection" class="section hidden">
+<section class="section hidden" id="graphicSection">
 
     <h2 class="section-title">
         Graphic Design Projects
@@ -365,14 +411,45 @@ canvas{
 
     <div class="graphic-grid">
 
-        <div class="graphic-item">Case 01</div>
-        <div class="graphic-item">Case 02</div>
-        <div class="graphic-item">Case 03</div>
-        <div class="graphic-item">Case 04</div>
-        <div class="graphic-item">Case 05</div>
-        <div class="graphic-item">Case 06</div>
-        <div class="graphic-item">Case 07</div>
-        <div class="graphic-item">Case 08</div>
+        <div class="graphic-card">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop">
+            <p>Brand Identity</p>
+        </div>
+
+        <div class="graphic-card">
+            <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=1200&auto=format&fit=crop">
+            <p>Presentation Design</p>
+        </div>
+
+        <div class="graphic-card">
+            <img src="https://images.unsplash.com/photo-1523726491678-bf852e717f6a?q=80&w=1200&auto=format&fit=crop">
+            <p>Merch Design</p>
+        </div>
+
+        <div class="graphic-card">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop">
+            <p>Digital Campaign</p>
+        </div>
+
+        <div class="graphic-card">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop">
+            <p>Poster Series</p>
+        </div>
+
+        <div class="graphic-card">
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop">
+            <p>Packaging</p>
+        </div>
+
+        <div class="graphic-card">
+            <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1200&auto=format&fit=crop">
+            <p>Editorial Layout</p>
+        </div>
+
+        <div class="graphic-card">
+            <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1200&auto=format&fit=crop">
+            <p>Social Media Design</p>
+        </div>
 
     </div>
 
@@ -393,6 +470,8 @@ productBtn.addEventListener('click',()=>{
     productBtn.classList.add('active');
     graphicBtn.classList.remove('active');
 
+    document.body.classList.remove('graphic-mode');
+
     productSection.classList.remove('hidden');
     graphicSection.classList.add('hidden');
 });
@@ -401,6 +480,8 @@ graphicBtn.addEventListener('click',()=>{
 
     graphicBtn.classList.add('active');
     productBtn.classList.remove('active');
+
+    document.body.classList.add('graphic-mode');
 
     graphicSection.classList.remove('hidden');
     productSection.classList.add('hidden');
@@ -418,155 +499,80 @@ window.addEventListener("resize",()=>{
 
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
-
-    ground = h - 180;
 });
 
-let ground = h - 180;
+let dots = [];
 
-const player = {
+for(let i=0;i<80;i++){
 
-    x:140,
-    y:ground,
-    width:68,
-    height:68,
-    velocityY:0,
-    gravity:0.9,
-    jump:-18,
-    jumping:false
+    dots.push({
+
+        x:Math.random()*w,
+        y:Math.random()*h,
+        size:2 + Math.random()*6,
+        speed:0.2 + Math.random()*0.8
+    });
+}
+
+let mouse = {
+
+    x:w/2,
+    y:h/2
 };
 
-let obstacles = [];
-let speed = 8;
+window.addEventListener("mousemove",(e)=>{
 
-function jump(){
-
-    if(!player.jumping){
-
-        player.velocityY = player.jump;
-        player.jumping = true;
-    }
-}
-
-window.addEventListener("keydown",e=>{
-
-    if(e.code === "Space"){
-
-        e.preventDefault();
-        jump();
-    }
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
 });
-
-window.addEventListener("click",jump);
-
-function spawnObstacle(){
-
-    const types = ["🐞","404","✕"];
-
-    obstacles.push({
-
-        x:w + 100,
-        y:ground,
-        emoji:types[Math.floor(Math.random()*types.length)]
-    });
-}
-
-setInterval(spawnObstacle,1800);
-
-function drawBackground(){
-
-    ctx.strokeStyle = "rgba(255,255,255,0.05)";
-
-    for(let i=0;i<w;i+=80){
-
-        ctx.beginPath();
-        ctx.moveTo(i,0);
-        ctx.lineTo(i,h);
-        ctx.stroke();
-    }
-}
-
-function drawGround(){
-
-    ctx.beginPath();
-
-    ctx.strokeStyle = "rgba(255,255,255,0.12)";
-    ctx.lineWidth = 2;
-
-    ctx.moveTo(0,ground+60);
-    ctx.lineTo(w,ground+60);
-
-    ctx.stroke();
-}
-
-function updatePlayer(){
-
-    player.velocityY += player.gravity;
-    player.y += player.velocityY;
-
-    if(player.y >= ground){
-
-        player.y = ground;
-        player.velocityY = 0;
-        player.jumping = false;
-    }
-}
-
-function drawPlayer(){
-
-    ctx.save();
-
-    ctx.translate(player.x,player.y);
-
-    ctx.fillStyle = "white";
-
-    ctx.beginPath();
-    ctx.roundRect(0,0,player.width,player.height,20);
-    ctx.fill();
-
-    ctx.fillStyle = "black";
-    ctx.font = "32px Arial";
-    ctx.fillText("F",24,44);
-
-    ctx.restore();
-}
-
-function drawObstacles(){
-
-    obstacles.forEach((obs,index)=>{
-
-        obs.x -= speed;
-
-        ctx.font = "42px Arial";
-        ctx.fillText(obs.emoji,obs.x,obs.y+40);
-
-        if(
-            player.x < obs.x + 50 &&
-            player.x + player.width > obs.x &&
-            player.y < obs.y + 50 &&
-            player.y + player.height > obs.y
-        ){
-            obstacles.splice(index,1);
-        }
-
-        if(obs.x < -100){
-
-            obstacles.splice(index,1);
-        }
-    });
-}
 
 function animate(){
 
     ctx.clearRect(0,0,w,h);
 
-    drawBackground();
-    drawGround();
+    dots.forEach(dot=>{
 
-    updatePlayer();
+        dot.y += dot.speed;
 
-    drawPlayer();
-    drawObstacles();
+        if(dot.y > h){
+
+            dot.y = -20;
+            dot.x = Math.random()*w;
+        }
+
+        ctx.beginPath();
+
+        ctx.fillStyle = getComputedStyle(document.body)
+            .getPropertyValue('--accent');
+
+        ctx.globalAlpha = 0.12;
+
+        ctx.arc(dot.x,dot.y,dot.size,0,Math.PI*2);
+
+        ctx.fill();
+
+        const dx = mouse.x - dot.x;
+        const dy = mouse.y - dot.y;
+
+        const dist = Math.sqrt(dx*dx + dy*dy);
+
+        if(dist < 140){
+
+            ctx.beginPath();
+
+            ctx.globalAlpha = 0.2;
+
+            ctx.moveTo(dot.x,dot.y);
+            ctx.lineTo(mouse.x,mouse.y);
+
+            ctx.strokeStyle = getComputedStyle(document.body)
+            .getPropertyValue('--accent');
+
+            ctx.stroke();
+        }
+    });
+
+    ctx.globalAlpha = 1;
 
     requestAnimationFrame(animate);
 }
